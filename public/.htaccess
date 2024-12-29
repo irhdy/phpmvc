@@ -1,0 +1,22 @@
+# Menonaktifkan fitur MultiViews pada server
+# MultiViews adalah bagian dari mod_negotiation yang memungkinkan server mencocokkan permintaan URL dengan file yang serupa secara otomatis.
+# Menonaktifkan ini memastikan bahwa hanya URL yang benar-benar cocok dengan aturan yang akan diproses.
+Options -Multiviews
+
+# Mengaktifkan modul RewriteEngine
+# Modul ini memungkinkan penggunaan aturan penulisan ulang URL.
+RewriteEngine On
+
+# Kondisi: Jika permintaan bukan direktori yang ada
+# Mengecek apakah URL yang diminta tidak mengarah ke direktori yang ada di server.
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Kondisi: Jika permintaan bukan file yang ada
+# Mengecek apakah URL yang diminta tidak mengarah ke file yang ada di server.
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Aturan penulisan ulang URL
+# Semua permintaan akan diarahkan ke file index.php dengan parameter 'url' berisi URL yang diminta.
+# ^(.*)$ menangkap seluruh bagian URL setelah domain dan memuatnya ke variabel $1.
+# [L] menandakan bahwa aturan ini adalah aturan terakhir yang diproses jika cocok.
+RewriteRule ^(.*)$ index.php?url=$1 [L]

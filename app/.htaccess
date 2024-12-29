@@ -1,0 +1,4 @@
+# Menonaktifkan listing direktori
+# Jika tidak ada file index di direktori, pengunjung tidak akan bisa melihat daftar file
+
+Options -Indexes
